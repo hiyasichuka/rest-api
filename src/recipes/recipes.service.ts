@@ -22,7 +22,7 @@ export class RecipesService {
 
       const response = {
         message: 'Recipe successfully created!',
-        recipe: recipe,
+        recipe: [recipe],
       };
       return response;
     } catch (e) {
@@ -38,7 +38,7 @@ export class RecipesService {
   async findAll() {
     const recipe = await this.prisma.recipe.findMany();
     const response = {
-      recipe,
+      recipes: recipe,
     };
     return response;
   }
