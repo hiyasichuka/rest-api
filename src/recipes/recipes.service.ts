@@ -52,7 +52,7 @@ export class RecipesService {
 
     const response = {
       message: 'Recipe details by id',
-      recipe,
+      recipe: [recipe],
     };
 
     return response;
