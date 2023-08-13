@@ -7,10 +7,10 @@ import { UpdateRecipeDto } from './dto/update-recipe.dto';
 export class RecipesService {
   constructor(private prisma: PrismaService) {}
 
-  create(createRecipeDto: CreateRecipeDto) {
+  async create(createRecipeDto: CreateRecipeDto) {
     try {
       const { title, making_time, serves, ingredients, cost } = createRecipeDto;
-      const recipe = this.prisma.recipe.create({
+      const recipe = await this.prisma.recipe.create({
         data: {
           title,
           making_time,
@@ -34,16 +34,16 @@ export class RecipesService {
     }
   }
 
-  findAll() {
-    const recipe = this.prisma.recipe.findMany();
+  async findAll() {
+    const recipe = await this.prisma.recipe.findMany();
     const response = {
       recipe,
     };
     return response;
   }
 
-  find(id: number) {
-    const recipe = this.prisma.recipe.findFirst({
+  async find(id: number) {
+    const recipe = await this.prisma.recipe.findFirst({
       where: {
         id: id,
       },
@@ -57,10 +57,10 @@ export class RecipesService {
     return response;
   }
 
-  update(id: number, updateRecipeDto: UpdateRecipeDto) {
+  async update(id: number, updateRecipeDto: UpdateRecipeDto) {
     const { title, making_time, serves, ingredients, cost } = updateRecipeDto;
 
-    this.prisma.recipe.update({
+    await this.prisma.recipe.update({
       where: { id: id },
       data: {
         title,
@@ -72,9 +72,9 @@ export class RecipesService {
     });
   }
 
-  delete(id: number) {
+  async delete(id: number) {
     try {
-      this.prisma.recipe.delete({
+      await this.prisma.recipe.delete({
         where: { id: id },
       });
       return { message: 'Recipe successfully removed!' };
