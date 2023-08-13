@@ -61,7 +61,7 @@ export class RecipesService {
   async update(id: number, updateRecipeDto: UpdateRecipeDto) {
     const { title, making_time, serves, ingredients, cost } = updateRecipeDto;
 
-    await this.prisma.recipe.update({
+    const recipe = await this.prisma.recipe.update({
       where: { id: id },
       data: {
         title,
@@ -71,6 +71,11 @@ export class RecipesService {
         cost: Number(cost),
       },
     });
+
+    return {
+      message: 'Recipe successfully updated!',
+      recipe,
+    };
   }
 
   async delete(id: number) {
