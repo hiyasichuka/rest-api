@@ -16,7 +16,7 @@ export class RecipesService {
           making_time,
           serves,
           ingredients,
-          cost,
+          cost: Number(cost),
         },
       });
 
@@ -25,7 +25,8 @@ export class RecipesService {
         recipe: recipe,
       };
       return response;
-    } catch {
+    } catch (e) {
+      console.error(e.message);
       const response = {
         message: 'Recipe creation failed!',
         required: 'title, making_time, serves, ingredients, cost',
@@ -67,7 +68,7 @@ export class RecipesService {
         making_time,
         serves,
         ingredients,
-        cost,
+        cost: Number(cost),
       },
     });
   }
@@ -78,7 +79,8 @@ export class RecipesService {
         where: { id: id },
       });
       return { message: 'Recipe successfully removed!' };
-    } catch {
+    } catch (e) {
+      console.error(e.message);
       return { message: 'No Recipe found' };
     }
   }
