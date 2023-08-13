@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   Patch,
   Post,
@@ -16,6 +17,7 @@ export class RecipesController {
   constructor(private readonly recipesService: RecipesService) {}
 
   @Post()
+  @HttpCode(200)
   create(@Body() createRecipeDto: CreateRecipeDto) {
     return this.recipesService.create(createRecipeDto);
   }
